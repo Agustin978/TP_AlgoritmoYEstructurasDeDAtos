@@ -16,8 +16,8 @@ Lista crearLista(); /*Creacion de la lista*/
 Lista insertarDato(Lista L, int n); /*Agrega un nuevo elemento a la lista*/
 bool esVacia(Lista L); /*Determina si la lista esta vacia o no*/
 void mostrar(Lista L); /*Muestra la lista por pantalla*/
-int primerElemento(Lista L); /*Retorna unicamente el primer elemento de la lista*/
-int ultimoElemento(Lista L); /*Retorna unicamente el ultimo elemento de la lista*/
+void primerElemento(Lista L); /*Retorna unicamente el primer elemento de la lista*/
+void ultimoElemento(Lista L); /*Retorna unicamente el ultimo elemento de la lista*/
 int longitud(Lista L); /*Retorna la cantidad de nodos que contiene la lista*/
 bool pertenece(Lista L, int n); /*Determina si un elemento dado pertenece a la lista*/
 Lista eliminaPrimerElemento(Lista L); /*Elimina el primer elemento de la lista*/
@@ -65,13 +65,15 @@ int main()
                 break;
 
             case 4:
-                printf("\nEl primer elemento de la lista actualmente es: %d\n", primerElemento(L));
+                //printf("\nEl primer elemento de la lista actualmente es: %d\n", primerElemento(L));
+                primerElemento(L);
                 fflush(stdin);
                 getchar();
                 break;
             
             case 5:
-                printf("El ultimo elemento de la lista actualmente es: %d\n", ultimoElemento(L));
+                //printf("El ultimo elemento de la lista actualmente es: %d\n", ultimoElemento(L));
+                ultimoElemento(L);
                 fflush(stdin);
                 getchar();
                 break;
@@ -93,17 +95,17 @@ int main()
 
             case 8:
                 //system("cls");
-                //int n;
+                int pert;
                 printf("\nIngrese el elemento que desea determinar si pertenece a la lista:\n");
-                scanf(">%d", &n);
-                resp = pertenece(L, n);
+                scanf(">%d", &pert);
+                resp = pertenece(L, pert);
                 
                 if(resp == true)
                 {
-                    printf("El numero %d SI pertenece a la lista.\n", n);
+                    printf("El numero %d SI pertenece a la lista.\n", pert);
                 }else
                 {
-                    printf("El numero %d NO pertenece a la lista.\n", n);
+                    printf("El numero %d NO pertenece a la lista.\n", pert);
                 }
                 fflush(stdin);
                 getchar();
@@ -111,11 +113,11 @@ int main()
 
             case 9:
                 //system("cls");
-                //int n;
+                int elimina;
                 printf("\nIngrese el elemento que desea eliminar de la lista:\n");
-                scanf(">%d", &n);
-                L = eliminaElemento(L, n);
-                printf("\nElemento %d eliminado\n", n);
+                scanf(">%d", &elimina);
+                L = eliminaElemento(L, elimina);
+                printf("\nElemento %d eliminado\n", elimina);
                 printf("\nElementos de la lista:\n");
                 mostrar(L);
 
@@ -239,7 +241,7 @@ void mostrar(Lista L)
     
 }
 
-int primerElemento(Lista L)
+void primerElemento(Lista L)
 {
     struct Nodo *seguidor = L;
     int dato, contador = 0;
@@ -250,27 +252,34 @@ int primerElemento(Lista L)
         {
             dato = seguidor->dato;
             seguidor = seguidor->siguiente;
+            printf("\nEl primer elemento de la lista actualmente es: %d\n", dato);
             contador++;
         }
     }else
     {
-        printf("La lista esta vacia.");
+        printf("\nLa lista esta vacia.\n");
     }
-    return dato;
+    //return dato;
 }
 
-int ultimoElemento(Lista L)
+void ultimoElemento(Lista L)
 {
     struct Nodo *seguidor = L;
     int dato;
-
-    while (seguidor!=NULL)
+    //Determino si la lista esta vacia
+    if(esVacia(L) != true)
     {
-        dato = seguidor->dato;
-        seguidor = seguidor->siguiente;
+        while (seguidor!=NULL)
+        {
+            dato = seguidor->dato;
+            seguidor = seguidor->siguiente;
+        }
+        printf("\nEl ultimo elemento de la lista actualmente es: %d\n", dato);
+    }else
+    {
+        printf("\nLa lista esta vacia.\n");
     }
-
-    return dato;
+    //return dato;
 }
 
 int longitud(Lista L)
@@ -304,11 +313,14 @@ bool pertenece(Lista L, int n)
 Lista eliminaPrimerElemento(Lista L)
 {
     struct Nodo* seguidor = L;
-    //int contador = 0;
-    L = L->siguiente;
-    //printf("%d // %d", seguidor->dato, seguidor->siguiente);
-    free(seguidor);
-    //printf("%d", L->dato);
+    //Determino si la lista esta vacia
+    if(esVacia(L)!=true)
+    {
+        L = L->siguiente;
+        //printf("%d // %d", seguidor->dato, seguidor->siguiente);
+        free(seguidor);
+        //printf("%d", L->dato);
+    }
     return L;
 }
 
