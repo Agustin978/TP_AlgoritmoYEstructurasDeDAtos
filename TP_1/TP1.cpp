@@ -22,13 +22,14 @@ int longitud(Lista L); /*Retorna la cantidad de nodos que contiene la lista*/
 bool pertenece(Lista L, int n); /*Determina si un elemento dado pertenece a la lista*/
 Lista eliminaPrimerElemento(Lista L); /*Elimina el primer elemento de la lista*/
 Lista eliminaElemento(Lista L, int n); /*Elimina un elemento especifico de la lista*/
+bool estaContenida(Lista L, Lista X); /*Dadas dos listas enlazadas, comprobara si los elementos de una se encuentran en la otra lista tambien*/
 
 int main()
 {
     //bool resp;
     Lista L = crearLista(); //Creacion de la lista
     int respuesta, n, pert, elimina;
-    bool resp;
+    bool resp, iguales;
     do
     {
         //system("cls");
@@ -135,8 +136,20 @@ int main()
         }
     } while (respuesta != 10);
     
-    
+    Lista X = crearLista();
+    X = insertarDato(X,1);
+    X = insertarDato(X,2);
+    X = insertarDato(X,3);
+    X = insertarDato(X,4);
+    iguales = estaContenida(L, X);
 
+    if(iguales == true)
+    {
+        printf("\nLas listas SI son iguales\n");
+    }else
+    {
+        printf("\nLas listas NO son iguales\n");
+    }
     
     //printf("\n\n=======Inicio del programa=======\n\n");
     //printf("\nDir: %p\n", L);
@@ -334,14 +347,14 @@ Lista eliminaElemento(Lista L, int n)
     //Determino primero que la lista no sea vacia y que el elemento pertenezca a ella
     if(esVacia(L)!=true && pertenece(L, n) == true)
     {
-        while (seguidor != NULL && seguidor->dato!=n)
+        while (seguidor != NULL && seguidor->dato != n)
         {
             ant = seguidor;
             seguidor = seguidor->siguiente;
         }
-
         if(seguidor!=NULL)
         {
+            fflush(stdin);
             ant->siguiente = seguidor->siguiente;
             free(seguidor);
         }
@@ -353,6 +366,21 @@ Lista eliminaElemento(Lista L, int n)
     return L;
 }
 
+bool estaContenida(Lista L, Lista X)
+{
+    while (L!=NULL && X!=NULL)
+    {
+        if(L->dato==X->dato)
+        {
+            L = L->siguiente;
+            X = X->siguiente;
+        }else
+        {
+            return false;
+        }
+    }
+    return true;
+}
 
 int menu()
 {
