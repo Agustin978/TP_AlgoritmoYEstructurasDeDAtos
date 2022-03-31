@@ -27,7 +27,7 @@ int main()
 {
     //bool resp;
     Lista L = crearLista(); //Creacion de la lista
-    int respuesta, n;
+    int respuesta, n, pert, elimina;
     bool resp;
     do
     {
@@ -95,9 +95,11 @@ int main()
 
             case 8:
                 //system("cls");
-                int pert;
+                //int pert;
+                fflush(stdin);
                 printf("\nIngrese el elemento que desea determinar si pertenece a la lista:\n");
-                scanf(">%d", &pert);
+                scanf("%d", &pert);
+                //printf("%d", pert);
                 resp = pertenece(L, pert);
                 
                 if(resp == true)
@@ -113,11 +115,11 @@ int main()
 
             case 9:
                 //system("cls");
-                int elimina;
+                //int elimina;
                 printf("\nIngrese el elemento que desea eliminar de la lista:\n");
-                scanf(">%d", &elimina);
+                scanf("%d", &elimina);
                 L = eliminaElemento(L, elimina);
-                printf("\nElemento %d eliminado\n", elimina);
+                //printf("\nElemento %d eliminado\n", elimina);
                 printf("\nElementos de la lista:\n");
                 mostrar(L);
 
@@ -343,6 +345,7 @@ Lista eliminaElemento(Lista L, int n)
             ant->siguiente = seguidor->siguiente;
             free(seguidor);
         }
+        printf("\nElemento %d eliminado\n", n);
     }else
     {
         printf("\nNo se puede eliminar el elemento %d, pues este no se encuentra en la lista.", n);
