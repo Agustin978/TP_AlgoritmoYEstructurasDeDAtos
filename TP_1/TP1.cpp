@@ -16,20 +16,21 @@ Lista crearLista(); /*Creacion de la lista*/
 Lista insertarDato(Lista L, int n); /*Agrega un nuevo elemento a la lista*/
 bool esVacia(Lista L); /*Determina si la lista esta vacia o no*/
 void mostrar(Lista L); /*Muestra la lista por pantalla*/
-void primerElemento(Lista L); /*Retorna unicamente el primer elemento de la lista*/
+int primerElemento(Lista L); /*Retorna unicamente el primer elemento de la lista*/
 void ultimoElemento(Lista L); /*Retorna unicamente el ultimo elemento de la lista*/
 int longitud(Lista L); /*Retorna la cantidad de nodos que contiene la lista*/
 bool pertenece(Lista L, int n); /*Determina si un elemento dado pertenece a la lista*/
 Lista eliminaPrimerElemento(Lista L); /*Elimina el primer elemento de la lista*/
 Lista eliminaElemento(Lista L, int n); /*Elimina un elemento especifico de la lista*/
 bool estaContenida(Lista L, Lista X); /*Dadas dos listas enlazadas, comprobara si los elementos de una se encuentran en la otra lista tambien*/
+bool estaContenida_2(Lista L, Lista X); /*Igual a la anterior solo que sin el uso de punteros, solo con las funciones definidas*/
 
 int main()
 {
     //bool resp;
     Lista L = crearLista(); //Creacion de la lista
-    int respuesta, n, pert, elimina;
-    bool resp, iguales;
+    int respuesta, n, pert, elimina, primEl;
+    bool resp, iguales, iguales_2;
     do
     {
         //system("cls");
@@ -67,7 +68,8 @@ int main()
 
             case 4:
                 //printf("\nEl primer elemento de la lista actualmente es: %d\n", primerElemento(L));
-                primerElemento(L);
+                primEl = primerElemento(L);
+                printf("\nEl primer elemento de la lista actualmente es: %d\n", primEl);
                 fflush(stdin);
                 getchar();
                 break;
@@ -144,6 +146,16 @@ int main()
     iguales = estaContenida(L, X);
 
     if(iguales == true)
+    {
+        printf("\nLas listas SI son iguales\n");
+    }else
+    {
+        printf("\nLas listas NO son iguales\n");
+    }
+
+    iguales_2 = estaContenida_2(L, X);
+
+    if(iguales_2 == true)
     {
         printf("\nLas listas SI son iguales\n");
     }else
@@ -256,7 +268,7 @@ void mostrar(Lista L)
     
 }
 
-void primerElemento(Lista L)
+int primerElemento(Lista L)
 {
     struct Nodo *seguidor = L;
     int dato, contador = 0;
@@ -267,14 +279,14 @@ void primerElemento(Lista L)
         {
             dato = seguidor->dato;
             seguidor = seguidor->siguiente;
-            printf("\nEl primer elemento de la lista actualmente es: %d\n", dato);
+            //printf("\nEl primer elemento de la lista actualmente es: %d\n", dato);
             contador++;
         }
     }else
     {
         printf("\nLa lista esta vacia.\n");
     }
-    //return dato;
+    return dato;
 }
 
 void ultimoElemento(Lista L)
@@ -378,6 +390,31 @@ bool estaContenida(Lista L, Lista X)
         {
             return false;
         }
+    }
+    return true;
+}
+
+bool estaContenida_2(Lista L, Lista X)
+{
+    int primero1, primero2;
+    if(esVacia(L) != true && esVacia(X) != true)
+    {
+        while (L != NULL && X != NULL)
+        {
+            primero1 = primerElemento(L);
+            primero2 = primerElemento(X);
+            if(primero1 == primero2)
+            {
+                eliminaPrimerElemento(X);
+                eliminaPrimerElemento(L);
+            }else
+            {
+                return false;
+            }
+        }
+    }else
+    {
+        return false;
     }
     return true;
 }
