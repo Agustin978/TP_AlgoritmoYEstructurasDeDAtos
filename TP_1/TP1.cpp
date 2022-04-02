@@ -257,9 +257,9 @@ void mostrar(Lista L)
     {
         while (seguidor != NULL)
         {
-        printf("Elemento %d: %d\n", contador, seguidor->dato);
-        seguidor = seguidor->siguiente;
-        contador++;
+            printf("Elemento %d: %d\n", contador, seguidor->dato);
+            seguidor = seguidor->siguiente;
+            contador++;
         }
     }else
     {
