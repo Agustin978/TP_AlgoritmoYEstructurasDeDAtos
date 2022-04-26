@@ -20,6 +20,7 @@ Alumno BajaAlumno(Alumno comision, char apellido); //Da de baja un alumno dado
 Alumno BajaUltimo(Alumno comision);  //Da de baja el ultimo alumno ingresado
 char UltimoInscripto(Alumno comision);  //Devuelve el nombre y apellido del ultimo alumno inscripto en la lista
 bool Esta(Alumno comision, char apellido);  //Determina si un alumno solicitado se encuentra en la lista o no
+bool HayComunes(Alumno comision, Alumno comision_2);  //Determina si dos comisiones tiene alumnos en comun
 
 int main()
 {
@@ -111,6 +112,27 @@ bool Esta(Alumno comision, char apellido)
     return false;
 }
 
+Alumno BajaUltimo(Alumno comision)
+{
+    Alumno seguidor = comision;
+    Alumno anterior;
+    if(!EstaVacia(seguidor))
+    {
+        while (seguidor!=NULL)
+        {
+            anterior = seguidor;
+            if(seguidor->siguiente == NULL)
+            {
+                fflush(stdin);
+                free(seguidor);
+                anterior->siguiente = NULL;
+            }
+            seguidor = seguidor->siguiente;
+        } 
+    }
+    return comision;
+}
+
 Alumno BajaAlumno(Alumno comision, char apellido)
 {
     Alumno seguidor = comision;
@@ -134,4 +156,21 @@ Alumno BajaAlumno(Alumno comision, char apellido)
         
     }
     return comision;
+}
+
+bool HayComunes(Alumno comision, Alumno comision_2)
+{
+    if(!EstaVacia(comision))
+    {
+        while (comision_2!=NULL)
+        {
+            if(Esta(comision, comision_2->apellido))
+            {
+                return true;
+            }
+            
+            comision_2 = comision_2->siguiente;
+        }
+    }
+    return false;
 }
