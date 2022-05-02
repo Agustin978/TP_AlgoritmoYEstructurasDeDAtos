@@ -25,6 +25,7 @@ typedef struct
 void creaPila(Pila *pila);  //Constructora
 bool EsPilaVacia(Pila pila);  //Constructora
 item Top(Pila *pila); //Obtengo el primer elemento de la pila
+item Fondo(Pila *pila); //Obtengo el fondo de la pila
 Pila *Push(Pila *pila, item dato);  //Agrego un elemento a la cabecera de la pila
 Pila *Pop(Pila *pila); //Quito el primer elemento de la pila
 int Altura(Pila *pila); //Devuelve la altura de la pila
@@ -128,11 +129,13 @@ int main()
     if(EsPilaVacia(pila))
     {
         printf("\nLa pila es vacia.");
-        printf("\nEl primer elemento de la pila es:");
-        puts(Top(&pila));
     }else
     {
         printf("\nLa pila no es vacia.");
+        printf("\nEl primer elemento de la pila es:");
+        puts(Top(&pila));
+        printf("\nEl ultimo elemento de la pila es:");
+        puts(Fondo(&pila));
     }
 
     printf("\nTamaño de la pila: %d", Altura(&pila));
@@ -205,6 +208,24 @@ void limpiaPila(Pila *pila)
         Pop(pila); //Libero nodo a nodo la pila
     }
 }
+
+item Fondo(Pila *pila)
+{
+    if(!EsPilaVacia(*pila))
+    {
+        Pila *pilAux = pila;
+        Nodo *nodAux = pilAux->cabecera;
+        while (nodAux->nodoSig != NULL)
+        {
+            pilAux->cabecera = nodAux->nodoSig;
+            nodAux = nodAux->nodoSig;
+        }
+        return pilAux->cabecera->dato;
+    }
+    puts("Error, pila vacia");
+    exit(0);
+}
+
 
 int menu()
 {
