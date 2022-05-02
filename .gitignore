@@ -4,6 +4,12 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=c,visualstudiocode
 
 ### C ###
+#Ejecutables de los programas
+TP4_2_d.exe
+TP1.exe
+Pila.exe
+Pila2_Practica.exe
+
 # Prerequisites
 *.d
 
