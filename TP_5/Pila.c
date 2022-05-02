@@ -24,11 +24,12 @@ typedef struct
 //Declaracion de funciones
 void creaPila(Pila *pila);  //Constructora
 bool EsPilaVacia(Pila pila);  //Constructora
-item Top(Pila *pila); //Obtengo el primer elemento de la pila
-item Fondo(Pila *pila); //Obtengo el fondo de la pila
-Pila *Push(Pila *pila, item dato);  //Agrego un elemento a la cabecera de la pila
-Pila *Pop(Pila *pila); //Quito el primer elemento de la pila
-int Altura(Pila *pila); //Devuelve la altura de la pila
+item Top(Pila pila); //Obtengo el primer elemento de la pila
+item Fondo(Pila pila); //Obtengo el fondo de la pila
+Pila Push(Pila pila, item dato);  //Agrego un elemento a la cabecera de la pila
+Pila Pop(Pila pila); //Quito el primer elemento de la pila
+int Altura(Pila pila); //Devuelve la altura de la pila
+bool Incluida(Pila pila_1, Pila pila_2); //Verifica si la pila2 esta imcluida en la pila1
 int menu(); //Menu interactivo
 void limpiaPila(Pila *pila);
 /*
@@ -111,20 +112,22 @@ int main()
     }
 
     printf("\nIngresando dato numerico 10");
-    Push(&pila, 10);
+    pila = Push(pila, 10);
     printf("\n¿Ahora la pila es vacia?");
     if(EsPilaVacia(pila))
     {
         printf("\nLa pila es vacia.");
-        printf("\nEl primer elemento de la pila es:");
-        puts(Top(&pila));
     }else
     {
         printf("\nLa pila no es vacia.");
+        printf("\nEl primer elemento de la pila es:");
+        printf("%d\n", Top(pila));
     }
 
-    printf("\nIngresando dato string Auto");
-    Push(&pila, "Auto");
+    //printf("\nIngresando dato string Auto");
+    //Push(&pila, "Auto"); La pila unicamente puede recibir datos de tipo int
+    printf("\nIngresando dato numerico 145");
+    pila = Push(pila, 145);
     printf("\n¿Ahora la pila es vacia?");
     if(EsPilaVacia(pila))
     {
@@ -133,12 +136,12 @@ int main()
     {
         printf("\nLa pila no es vacia.");
         printf("\nEl primer elemento de la pila es:");
-        puts(Top(&pila));
+        printf("%d\n", Top(pila));
         printf("\nEl ultimo elemento de la pila es:");
-        puts(Fondo(&pila));
+        printf("%d\n", Fondo(pila));
     }
 
-    printf("\nTamaño de la pila: %d", Altura(&pila));
+    printf("\nTamaño de la pila: %d", Altura(pila));
 
     limpiaPila(&pila);
     return 0;
@@ -159,44 +162,47 @@ bool EsPilaVacia(Pila pila)
     return false;
 }
 
-item Top(Pila *pila)
+item Top(Pila pila)
 {
-    if(EsPilaVacia(*pila))
+    if(EsPilaVacia(pila))
     {
         puts("Pila vacia.");
-        exit(0);
+        //exit(0);
+        return indefinido;
     }
-    return pila->cabecera->dato;
+    return pila.cabecera->dato;
 }
 
-Pila *Push(Pila *pila, item dato)
+Pila Push(Pila pila, item dato)
 {
     Nodo *nodoAux = (Nodo*)malloc(sizeof(Nodo)); //Reservo dinamicamente la memoria
     nodoAux->dato = dato;
-    nodoAux->nodoSig = pila->cabecera;
-    pila->cabecera = nodoAux;
-    pila->altura += 1;
+    nodoAux->nodoSig = pila.cabecera;
+    pila.cabecera = nodoAux;
+    pila.altura += 1;
+    return pila;
 }
 
-Pila *Pop(Pila *pila)
+Pila Pop(Pila pila)
 {
-    if(!EsPilaVacia(*pila))
+    if(!EsPilaVacia(pila))
     {
-        struct Nodo *nodoSeguidor = pila->cabecera;
+        struct Nodo *nodoSeguidor = pila.cabecera;
         //El nodo auxiliar apuntara al nodo al que apunta la cabecera
-        pila->cabecera = pila->cabecera->nodoSig;
-        pila->altura -= 1; //Resto uno a la altura
+        pila.cabecera = pila.cabecera->nodoSig;
+        pila.altura -= 1; //Resto uno a la altura
         //Hago que la cabecera de la pila apunte al nodo que le sigue a la cabecera
         free(nodoSeguidor);
         //Limpio la memoria del nodo que quite de la lista
+        return pila;
     }
 }
 
-int Altura(Pila *pila)
+int Altura(Pila pila)
 {
-    if(!EsPilaVacia(*pila))
+    if(!EsPilaVacia(pila))
     {
-        return pila->altura;
+        return pila.altura;
     }
     return 0;
 }
@@ -205,27 +211,38 @@ void limpiaPila(Pila *pila)
 {
     while (!EsPilaVacia(*pila))
     {
-        Pop(pila); //Libero nodo a nodo la pila
+        *pila = Pop(*pila); //Libero nodo a nodo la pila
     }
 }
 
-item Fondo(Pila *pila)
+item Fondo(Pila pila)
 {
-    if(!EsPilaVacia(*pila))
+    if(!EsPilaVacia(pila))
     {
-        Pila *pilAux = pila;
-        Nodo *nodAux = pilAux->cabecera;
+        Pila pilAux = pila;
+        Nodo *nodAux = pilAux.cabecera;
         while (nodAux->nodoSig != NULL)
         {
-            pilAux->cabecera = nodAux->nodoSig;
+            pilAux.cabecera = nodAux->nodoSig;
             nodAux = nodAux->nodoSig;
         }
-        return pilAux->cabecera->dato;
+        return pilAux.cabecera->dato;
     }
     puts("Error, pila vacia");
     exit(0);
 }
 
+bool Incluida(Pila pila_1, Pila pila_2)
+{
+    if (EsPilaVacia(pila_2))
+    {
+        return true;
+    }else
+    {
+        
+    }
+    
+}
 
 int menu()
 {
