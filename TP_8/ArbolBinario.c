@@ -20,6 +20,8 @@ AB ABArmar(AB I, itemAB dato, AB D);
 bool EsABVacio(AB T);
 bool Pertenece(AB T, itemAB dato);
 void imprimirPre(AB T);
+void imprimirPos(AB T);
+void imprimirSimertrico(AB T);
 AB HijoIzquierdo(AB T);
 AB HijoDerecho(AB T);
 itemAB Raiz(AB T);
@@ -28,8 +30,8 @@ bool EsABHoja(AB T);
 int main()
 {
     //AB Arbol = ABVacio();
-    AB I,D, Arbol = ABVacio();
-    itemAB *dato = "A", *dato2 = "B", *dato3 = "C";
+    AB I,D, Arbol = ABVacio(), raiz1;
+    itemAB *dato = "A", *dato1 = "B", *dato2 = "C", *dato3 = "D", *dato4 = "E";
 
     if(EsABVacio(Arbol))
     {
@@ -41,8 +43,9 @@ int main()
     
 
     I = CreaNodoAB(*dato3);
-    D = CreaNodoAB(*dato2);
-    Arbol = ABArmar(I, *dato, D);
+    D = CreaNodoAB(*dato4);
+    raiz1 = ABArmar(I, *dato1, D);
+    Arbol = ABArmar(raiz1, *dato, CreaNodoAB(*dato2));
 
     if(EsABVacio(Arbol))
     {
@@ -52,7 +55,7 @@ int main()
         printf("\nEl Arbol No esta vacio");
     }
 
-    printf("\n====Muestro el arbol====\n");
+    printf("\n====Muestro el arbol en Preorden====\n");
     imprimirPre(Arbol);
 
     printf("\n===Muestro Hijo Derecho===\n");
@@ -76,6 +79,12 @@ int main()
         printf("\nLa rama izquierda No es una hoja");
     }
 
+    printf("\n====Muestro el arbol en Posorden====\n");
+    imprimirPos(Arbol);
+
+    printf("\n\n====Muestro el arbol en orden Simetrico====\n");
+    imprimirSimertrico(Arbol);
+    
     return 0;
 }
 
@@ -135,8 +144,28 @@ void imprimirPre(AB T)
     if(T)
     {
         printf("%c\n", Raiz(T));
-        imprimirPre(T->der);
         imprimirPre(T->izq);
+        imprimirPre(T->der);
+    }
+}
+
+void imprimirPos(AB T)
+{
+    if(T)
+    {
+        imprimirPos(T->izq);
+        imprimirPos(T->der);
+        printf("%c\n", Raiz(T));
+    }
+}
+
+void imprimirSimertrico(AB T)
+{
+    if(T)
+    {
+        imprimirSimertrico(T->izq);
+        printf("%c\n", Raiz(T));
+        imprimirSimertrico(T->der);
     }
 }
 
