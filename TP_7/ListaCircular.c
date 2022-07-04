@@ -45,13 +45,13 @@ int main(){
 
     //PRUEBA FUNCION PERTENECE
     
-    if(LCPertenece(lc,2)){
-        printf("Si TA\n");
-    };
-    mostrarLC(lc, lc.longitud);
+    //if(LCPertenece(lc,2)){
+    //    printf("Si TA\n");
+    //};
+    //mostrarLC(lc, lc.longitud);
 
     //PRUEBA LCCONTARK
-    printf("\n%d", LCContarK(lc,2,LCLongitud(lc)));
+    //printf("\n%d", LCContarK(lc,2,LCLongitud(lc)));
 
     //PRUEBA DE LCVALOR
     //printf("\nEL VALOR EN VENTANA ES: %d\n", LCVALOR(lc));
