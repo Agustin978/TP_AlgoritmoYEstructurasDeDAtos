@@ -82,10 +82,6 @@ void mostrarArreglo(int arre[], int n){
     }
 }
 
-
-
-
-
 void mostrarFilas(Fila arregloFila[]){
     for(int i=0; i<10; i++){
         mostrarFila(arregloFila[i]);

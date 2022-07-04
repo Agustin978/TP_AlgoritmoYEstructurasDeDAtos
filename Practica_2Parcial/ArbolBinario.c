@@ -24,8 +24,9 @@ item Izquierdo(AB arbol); //Retorna el valor del hijo izquierdo
 item Derecho(AB arbol);  //Retorna el valor del hijo izquierdo
 item Raiz(AB arbol); //Retorna la raiz del arbol
 int Pertenece(AB arbol, item dato); //Determina si un elemento pertenece al arbol o no
-int preordenYBusca(AB arbol, item busca, int n); //Recorre la lista y busca la cantidad de veces que se encontro un determinado elemento
 void recorrePreorden(AB arbol);
+AB eliminaK(AB arbol, item dato); //Elimina un elemento del arbol
+void liberaMemoria(AB arbol);
 
 void main()
 {
@@ -54,7 +55,18 @@ void main()
 
     if(Pertenece(arbol, *"C"))
     {
-        printf("\nSe encontro el elemento C");
+        printf("\nSe encontro el elemento C\n");
+    }
+
+    liberaMemoria(arbol);
+
+    if(EsABVacio(arbol))
+    {
+        printf("\nEl arbol esta vacio.\n");
+    }else
+    {
+        printf("%c\n", arbol->raiz);
+        recorrePreorden(arbol);
     }
 }
 
@@ -155,3 +167,35 @@ void recorrePreorden(AB arbol)
         recorrePreorden(arbol->der);
     }
 }
+
+void liberaMemoria(AB arbol)
+{
+    if(!EsABVacio(arbol))
+    {
+        liberaMemoria(arbol->izq);
+        liberaMemoria(arbol->der);
+        free(arbol);
+        arbol = NULL;
+    }
+}
+
+/*
+AB eliminaK(AB arbol, item dato)
+{
+    if(!EsABVacio(arbol) && Pertenece(arbol, dato))
+    {
+        if(arbol->raiz == dato)
+        {
+            if(!EsABVacio(arbol->der))
+            {
+                free(arbol->raiz);
+                arbol->raiz = arbol->der;
+            }else if(!EsABVacio(arbol->izq))
+            {
+                arbol->raiz = arbol->izq;
+            }
+            
+        }
+    }
+}
+*/
