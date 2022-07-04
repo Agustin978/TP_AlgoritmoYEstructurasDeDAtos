@@ -88,7 +88,7 @@ int main()
     return 0;
 }
 
-AB ABVacio()
+AB  ABVacio()
 {
     return NULL;
 }

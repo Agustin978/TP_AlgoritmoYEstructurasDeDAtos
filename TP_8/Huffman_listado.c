@@ -23,9 +23,7 @@ AB Huffman(letraFrec Letras[], ABFrec arboles[]);
 
 int main(){
 
-    letraFrec arreLetras[] = {{'a', 0.110845}, {'b', 0.010895}, {'c', 0.048778}, {'d', 0.049769}, {'e', 0.133336 },
-                              {'f', 0.007965}, {'g', 0.011638}, {'h', 0.006108}, {'i', 0.077790}, {'j', 0.002889},
-                              {'k', 0.000083}};
+    letraFrec arreLetras[] = {{'a', 0.45}, {'b', 0.13}, {'c', 0.12}, {'d', 0.16}, {'e', 0.09}, {'f',0.05}};
     ABFrec arreArboles[100];
 	
     char arre[15];		
@@ -70,7 +68,7 @@ void listado(AB a, char arre[], int *cont, COD arresalida[])
 }
 
 AB Huffman(letraFrec letras[], ABFrec arboles[]){
-    short posicion1=0, posicion2, cantLetras=11;
+    short posicion1=0, posicion2, cantLetras=6;
     float menor=2, segundoMenor;
 
     for(int i=0; i< cantLetras;i++){

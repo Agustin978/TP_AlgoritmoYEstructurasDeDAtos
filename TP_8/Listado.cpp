@@ -33,9 +33,33 @@ La funcion Listado se encarga de recuperar los c�digos de Huffman para cada le
 #include<conio.h>
 #include<ArbolBinario.h>
 
+//Struct para ingresar en un arreglo las letras con sus respectivas frecuencias
+typedef struct
+{
+	char letra;
+	float frecuencia;
+}letraFrec;
+
+//Struct para ingresar en el arreglo los arboles que se vallan formando con sus respectivas frecuencias
+typedef struct
+{
+	AB Arbol;
+	float frecuencia;
+}ABFrecuencia;
+
 struct COD{  char letra;
 			 char cod[15];
 			};
+//Declaracion de funciones
+void listado(AB a, char arre[], int *cont, COD arresalida[]);
+AB Arbol_Huffman(letraFrec Letras[], ABFrecuencia arboles[]);
+
+int main()
+{
+
+
+	return 0;
+}
 
 void listado(AB a, char arre[], int *cont, COD arresalida[])
 {
@@ -47,8 +71,7 @@ void listado(AB a, char arre[], int *cont, COD arresalida[])
 			arre[*cont]='0';
 		}
 		listado(HijoIzquierdo(a),&arre[0], cont, &arresalida[0]);
-		if(EsABHoja(a))
-		{	
+		if(EsABHoja(a)){	
 			char car=Raiz(a);
 			arre[(*cont)+1]='\x0';
 			arresalida[car-96].letra=car;
@@ -65,9 +88,20 @@ void listado(AB a, char arre[], int *cont, COD arresalida[])
 	}
 }
 
-int main()
+AB Arbol_Huffman(letraFrec letras[], ABFrecuencia arboles[])
 {
+	int posicion1 = 0, posicion2, cantLetras = 26;
+	double menor = 2, segundoMenor; //Segundo menor para poder armar el arreglo de arboles
 
+	for(int i = 0; i < cantLetras; i++)
+	{
+		//Armo un arreglo con todas las letras en forma de hoja de un arbol
+		arboles[i].Arbol = ABArmar(ABVacio(), letras[i].letra, ABVacio()); 
+		arboles[i].frecuencia = letras[i].frecuencia; //Les asigno la frecuencia de la letra
+	}
 
-	return 0;
+	for(int j = 0; j < (cantLetras-1); i++)
+	{
+		
+	}
 }
