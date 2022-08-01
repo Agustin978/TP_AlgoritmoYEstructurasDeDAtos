@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "stdio.h": "c",
-        "AEDI.H": "cpp"
+        "AEDI.H": "cpp",
+        "stdlib.h": "c"
     }
 }
